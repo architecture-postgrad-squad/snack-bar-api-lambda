@@ -1,23 +1,33 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
+import { CognitoJwtVerifier } from "aws-jwt-verify";
+
+//TODO: change mocked data
+const verifier = CognitoJwtVerifier.create({
+  userPoolId: "123",
+  tokenUse: "access",
+  clientId: "123",
+});
+
 
 export const lambdaHandler = async (
   event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResult> => {
-  console.log(event);
 
   try {
+    await verifier.verify(event.requestContext.identity.accessKey || '');
+
     return {
       statusCode: 200,
       body: JSON.stringify({
-        message: "hello world",
+        message: "Authorized",
       }),
     };
   } catch (err) {
     console.log(err);
     return {
-      statusCode: 500,
+      statusCode: 401,
       body: JSON.stringify({
-        message: "some error happened",
+        message: "Unauthorized",
       }),
     };
   }
