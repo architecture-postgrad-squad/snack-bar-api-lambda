@@ -33,9 +33,9 @@ Para essa etapa do tech challenge, utilizamos o kubernetes para subir a aplicaç
 Para o build e deploy da Lambda:
 
 ```bash
-$ cd src
 $ unzip aws-sam-cli-linux-x86_64.zip -d sam-installation
 $ sudo ./sam-installation/install
+$ cd src
 $ sam build
 $ sam deploy --guided
 ```
