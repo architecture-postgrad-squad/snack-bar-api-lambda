@@ -18,9 +18,7 @@ Implementação da solução para a especificações do tech challenge #3 dispon
 - MER
 - Desenho da arquitetura
 
-A arquitetura implementada para os requisitos técnicos solicitados no tech challenge 2 está descrito na imagem abaixo:
-
-![image](https://github.com/user-attachments/assets/4c28d533-ac45-46b5-99f9-fd481eda1f34)
+![alt text](architecture.png)
 
 ### Requisitos
 
