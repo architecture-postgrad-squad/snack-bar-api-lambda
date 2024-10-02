@@ -22,7 +22,10 @@ Implementação da solução para a especificações do tech challenge #3 dispon
 
 ### Requisitos
 
-Ter [kubernetes](https://kubernetes.io/releases/download/), [docker](https://docs.docker.com/get-docker/), [git](https://git-scm.com/downloads) e [AWS CLI](https://aws.amazon.com/cli/) instalados.
+- [Kubernetes](https://kubernetes.io/releases/download/);
+- [Docker](https://docs.docker.com/get-docker/);
+- [Git](https://git-scm.com/downloads);
+- [Terraform]((https://developer.hashicorp.com/terraform/install)).
 
 ### Como iniciar localmente
 
