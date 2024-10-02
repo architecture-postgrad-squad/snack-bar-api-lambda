@@ -1,33 +1,48 @@
-import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
-import { CognitoJwtVerifier } from "aws-jwt-verify";
+import { APIGatewayProxyEvent } from "aws-lambda";
 
-//TODO: change mocked data
-const verifier = CognitoJwtVerifier.create({
-  userPoolId: "123",
-  tokenUse: "access",
-  clientId: "123",
-});
+import {
+  CognitoIdentityProviderClient,
+  InitiateAuthCommand,
+} from "@aws-sdk/client-cognito-identity-provider";
 
+const cognito = new CognitoIdentityProviderClient({});
 
-export const lambdaHandler = async (
-  event: APIGatewayProxyEvent
-): Promise<APIGatewayProxyResult> => {
+async function authenticate(
+  username: string,
+  password: string,
+  clientId: string
+) {
+  const command = new InitiateAuthCommand({
+    AuthFlow: "USER_PASSWORD_AUTH",
+    ClientId: clientId,
+    AuthParameters: {
+      USERNAME: username,
+      PASSWORD: password,
+    },
+  });
 
   try {
-    await verifier.verify(event.requestContext.identity.accessKey || '');
-
+    return (await cognito.send(command)).AuthenticationResult;
+  } catch (error) {
     return {
-      statusCode: 200,
-      body: JSON.stringify({
-        message: "Authorized",
-      }),
+      statusCode: 401,
+      body: JSON.stringify({ message: "Unauthenticated" }),
     };
+  }
+}
+
+export const lambdaHandler = async (event: APIGatewayProxyEvent) => {
+  const user = process.env.USERNAME!;
+  const pass = process.env.PASSWORD!;
+  const clientId = process.env.CLIENTID!;
+
+  try {
+    return await authenticate(user, pass, clientId);
   } catch (err) {
-    console.log(err);
     return {
       statusCode: 401,
       body: JSON.stringify({
-        message: "Unauthorized",
+        message: "Error",
       }),
     };
   }

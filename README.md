@@ -28,9 +28,12 @@ Ter [kubernetes](https://kubernetes.io/releases/download/), [docker](https://doc
 
 Para essa etapa do tech challenge, utilizamos o kubernetes para subir a aplicação na Amazon Web Services (AWS). Como a função de autenticação foi implementada usando os serviços da AWS, é necessário executar comandos de configuração pelo CLI disponibilizado por eles.
 
-Para o build e deploy da Lambda:
+Para o build e deploy da Lambda e suas dependências:
 
 ```bash
+$ terraform init
+$ terraform plan
+$ terraform apply
 $ unzip aws-sam-cli-linux-x86_64.zip -d sam-installation
 $ sudo ./sam-installation/install
 $ cd src

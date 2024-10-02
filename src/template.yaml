@@ -17,11 +17,12 @@ Resources:
   AuthFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
-      CodeUri: auth/
-      Handler: app.lambdaHandler
+      CodeUri: ./auth
+      Handler: ./auth/dist/app.lambdaHandler
       Runtime: nodejs20.x
       Architectures:
         - x86_64
+      PackageType: Zip
       Events:
         Auth:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
@@ -59,4 +60,4 @@ Outputs:
     Value: !GetAtt AuthFunction.Arn
   AuthFunctionIamRole:
     Description: Implicit IAM Role created for Auth function
-    Value: !GetAtt AuthFunctionRole.Arn
+    Value: arn:aws:iam::808038813283:role/LabRole
