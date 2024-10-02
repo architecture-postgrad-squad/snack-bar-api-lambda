@@ -31,12 +31,10 @@ Para essa etapa do tech challenge, utilizamos o kubernetes para subir a aplicaç
 Para o build e deploy da Lambda e suas dependências:
 
 ```bash
+$ cd src/auth
+$ npm run compile
+$ cd dist/ &&  zip -r ../dist/index.zip .
+$ cd ../..
 $ terraform init
-$ terraform plan
 $ terraform apply
-$ unzip aws-sam-cli-linux-x86_64.zip -d sam-installation
-$ sudo ./sam-installation/install
-$ cd src
-$ sam build
-$ sam deploy --guided
 ```
